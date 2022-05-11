@@ -1,18 +1,26 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.LinkedList;
 
-public class Treno extends Thread {
+public class Treno {
 
-public int treni() throws InterruptedException, FileNotFoundException  {
+    private LinkedList<Trenino> list = new LinkedList<Trenino>();
 
-    ExecutorService exec = Executors.newFixedThreadPool(120);
-    for (int i = 0; i < 120; ++i) {
-    exec.submit(new Trenino());
-    System.out.println("stai creando un nuovo thread");
+    public int getCurrentPosition(int index) {
+        return (list.get(index).posizione_treno);
+    }
+
+    public void treni() {
+
+        for (int i = 0; i < 120; ++i) {
+            list.add(new Trenino());
         }
+
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).start();
+        }
+    }
+
+    public ArrayList<Integer> getData(int index) {
+        return list.get(index).datiTreno();
     }
 }
